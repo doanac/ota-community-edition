@@ -47,6 +47,9 @@ generate-templates: cmd-kops ## Generate kubernetes config from the templates.
 	@kops toolbox template --template templates/platform --values $(CONFIG) --output $(GEN_PLATFORM)
 	@kops toolbox template --template templates/vault --values $(CONFIG) --output $(GEN_VAULT)
 	@kops toolbox template --template templates/services --values $(CONFIG) --output $(GEN_SERVICES)
+	@grep "gce: false" "$(CONFIG)" > /dev/null || \
+		echo "Remember to create GCE disks for PersistentVolumes named" && \
+		cat $(GEN_PLATFORM) | grep pdName | cut -d: -f2 \
 
 start-minikube: cmd-minikube cmd-kubectl ## Start local minikube environment.
 	@minikube ip 2>/dev/null || \

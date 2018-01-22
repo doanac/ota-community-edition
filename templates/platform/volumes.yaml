@@ -11,8 +11,14 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
+{{ if .gce }}
+  gcePersistentDisk:
+    pdName: treehub-pv-1
+    fsType: ext4
+{{ else }}
   hostPath:
     path: /data/treehub-pv-1
+{{ end }}
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -22,12 +28,19 @@ metadata:
     type: local
     volume: mysql
 spec:
+  storageClassName: standard
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
+{{ if .gce }}
+  gcePersistentDisk:
+    pdName: mysql-pv-1
+    fsType: ext4
+{{ else }}
   hostPath:
     path: /data/mysql-pv-1
+{{ end }}
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -37,12 +50,19 @@ metadata:
     type: local
     volume: zookeeper
 spec:
+  storageClassName: standard
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
+{{ if .gce }}
+  gcePersistentDisk:
+    pdName: zookeeper-pv-1
+    fsType: ext4
+{{ else }}
   hostPath:
     path: /data/zookeeper-pv-1
+{{ end }}
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -52,9 +72,16 @@ metadata:
     type: local
     volume: kafka
 spec:
+  storageClassName: standard
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
+{{ if .gce }}
+  gcePersistentDisk:
+    pdName: kafka-pv-1
+    fsType: ext4
+{{ else }}
   hostPath:
     path: /data/kafka-pv-1
+{{ end }}

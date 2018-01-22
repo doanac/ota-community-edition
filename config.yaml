@@ -6,6 +6,7 @@ kafka_topic_suffix: ce
 mysql_host: mysql
 image_pull_secrets_name: docker-registry-key
 zookeeper_host: zookeeper
+gce: false
 
 # images
 app_docker_image: advancedtelematic/ota-plus-web:latest
