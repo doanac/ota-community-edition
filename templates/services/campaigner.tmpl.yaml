@@ -57,6 +57,14 @@ spec:
           httpGet:
             port: 9001
             path: "/health"
+{{ if not .gce }}
+        readinessProbe:
+          initialDelaySeconds: 300
+          periodSeconds: 30
+          httpGet:
+            port: 9001
+            path: "/health"
+{{ end }}
       imagePullSecrets:
       - name: docker-registry-key
 ---

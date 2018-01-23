@@ -77,6 +77,14 @@ spec:
           httpGet:
             port: 9001
             path: "/health"
+{{ if .gce }}
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 30
+          httpGet:
+            port: 9001
+            path: "/health"
+{{ end }}
         volumeMounts:
         - name: objects
           mountPath: /treehub-objects/object-storage

@@ -2,8 +2,10 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: ota
+{{ if not .gce }}
   annotations:
     kubernetes.io/ingress.class: nginx
+{{ end }}
 spec:
   rules:
   - host: app.{{ .ingress_dns_name }}
